@@ -1,6 +1,8 @@
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 let cmdList = []
+var audio = new Audio('sound.wav');
+
 let emptyBuffer = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -70,7 +72,7 @@ let chip8 = blankChip8
 let displayMemory = emptyBuffer
 let arg_a, arg_x, arg_y, arg_xnnn, arg_xxnn, arg_xxxn
 let selectROM = document.getElementById("selectROM")
-
+let gameInterval
 function findKey(pressedKey) {
     switch (pressedKey) {
         case "1":
@@ -167,11 +169,11 @@ document.addEventListener("keydown", (event) => {
 document.addEventListener("keyup", (event) => {
     keysDict[findKey(event.key)] = false
 });
-
+function loadFonts(){
 for (var index in chip8["fonts"]) {
     chip8["memory"][fontStart + parseInt(index)] = chip8["fonts"][index]
 }
-
+}
 
 function btn_true(btn_name) {
     keysDict[btn_name] = true
@@ -185,8 +187,8 @@ function printKeys() {
     console.log(keysDict)
 }
 timer = 0
-setInterval(() => {
 
+gameInterval =  setInterval(() => {
     if (romFound) {
         cpuCycle()
         timer++
@@ -195,8 +197,11 @@ setInterval(() => {
             if (chip8["delayTimer"] > 0) {
                 chip8["delayTimer"] -= 1
             }
-            if (chip8["delayTimer"] > 0) {
-                chip8["delayTimer"] -= 1
+            if (chip8["soundTimer"] > 0) {
+                if (chip8["soundTimer"] ==2){
+                    audio.play()
+                }
+                chip8["soundTimer"] -= 1
             }
         }
     }
@@ -213,6 +218,10 @@ async function myRom(x) {
 }
 
 async function romChange() {
+    romFound = false
+    chip8 = blankChip8
+    displayMemory = emptyBuffer
+    loadFonts()
     k = await fetch(selectROM.value)
     romObject = await k.body.getReader().read()
     rom = romObject.value

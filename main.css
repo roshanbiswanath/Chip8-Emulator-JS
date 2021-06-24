@@ -82,7 +82,7 @@ body{
 }
 @media only screen and (min-width: 768px) {
   #keypad{
-    display: none;
+    display: none !important;
   }
   #canvas{
     order: 2;

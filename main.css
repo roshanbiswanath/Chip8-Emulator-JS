@@ -1,0 +1,82 @@
+/*
+
+@font-face {
+    font-family: 'Press Start 2P';
+    src:url();
+}
+.title{
+  margin-top: 1rem;
+  text-align: center ;
+  color: antiquewhite ;
+}
+body{
+  background-color: #212529 !important ;
+  align-content: center !important ;
+}
+#chip8{
+  width: 90%;
+  display: block;
+  margin: auto;
+  border:1px solid white;
+}
+.canvas-container{
+  margin-top: 1rem;
+  align-content: center !important ;
+}
+.romUpload{
+  font-size: 0.5rem !important;
+}*/
+
+@font-face {
+  font-family: 'Press Start 2P';
+  src:url();
+}
+
+
+.title{
+  order: 1;
+  color: antiquewhite;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+#all{
+  background-color: #212529 !important ;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content:space-evenly;
+  align-items: center;
+}
+#canvas{
+  order: 2;
+  width: 90vw;
+  height: 45vw;
+  border:0.5px solid white;
+  margin-bottom: 1rem;
+  image-rendering: pixelated;
+}
+#control-container{
+  height: 100%;
+  order: 3;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content:space-evenly;
+  align-items: center;
+}
+.control-row{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content:center;
+  align-items: center;
+}
+.nes-btn{
+  font-size: 1.5rem;
+  padding: revert;
+  margin: 0.5rem;
+}
+.nes-select{
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}

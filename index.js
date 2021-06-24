@@ -70,6 +70,102 @@ let displayMemory = emptyBuffer
 let arg_a, arg_x, arg_y, arg_xnnn, arg_xxnn, arg_xxxn
 let selectROM = document.getElementById("selectROM")
 
+function findKey(pressedKey) {
+    switch (pressedKey) {
+        case "1":
+            return 0x1
+            break;
+        case "2":
+            return 0x2
+            break;
+        case "3":
+            return 0x3
+            break;
+        case "4":
+            return 0xC
+            break;
+        case "q":
+            return 0x4
+            break;
+        case "w":
+            return 0x5
+            break;
+        case "e":
+            return 0x6
+            break;
+        case "r":
+            return 0xD
+            break;
+        case "a":
+            return 0x7
+            break;
+        case "s":
+            return 0x8
+            break;
+        case "d":
+            return 0x9
+            break;
+        case "f":
+            return 0xE
+            break;
+        case "z":
+            return 0xA
+            break;
+        case "x":
+            return 0x0
+            break;
+        case "c":
+            return 0xB
+            break;
+        case "v":
+            return 0xF
+            break;
+        case "Q":
+            return 0x4
+            break;
+        case "W":
+            return 0x5
+            break;
+        case "E":
+            return 0x6
+            break;
+        case "R":
+            return 0xD
+            break;
+        case "A":
+            return 0x7
+            break;
+        case "S":
+            return 0x8
+            break;
+        case "D":
+            return 0x9
+            break;
+        case "F":
+            return 0xE
+            break;
+        case "Z":
+            return 0xA
+            break;
+        case "X":
+            return 0x0
+            break;
+        case "C":
+            return 0xB
+            break;
+        case "V":
+            return 0xF
+            break;
+    }
+}
+
+document.addEventListener("keydown", (event) => {
+    keysDict[findKey(event.key)] = true
+});
+
+document.addEventListener("keyup", (event) => {
+    keysDict[findKey(event.key)] = false
+});
 
 for (var index in chip8["fonts"]) {
     chip8["memory"][fontStart + parseInt(index)] = chip8["fonts"][index]
@@ -92,23 +188,18 @@ setInterval(() => {
     if (romFound) {
         pageCycle()
     }
-    if (chip8["delayTimer"] > 0) {
-        chip8["delayTimer"] -= 1
-    }
-    if (chip8["delayTimer"] > 0) {
-        chip8["delayTimer"] -= 1
-    }
 }, 1);
-/*
+
 setInterval(() => {
+    if (romFound) {
     if (chip8["delayTimer"] > 0) {
         chip8["delayTimer"] -= 1
     }
     if (chip8["delayTimer"] > 0) {
         chip8["delayTimer"] -= 1
-    }
+    }}
 }, 16);
-*/
+
 
 async function myRom(x) {
     k = await fetch(x)
@@ -366,7 +457,7 @@ function execute(cmd) {
                 chip8["V"][arg_x] = sub + 256
                 chip8["V"][15] = 0
             }
-            
+
             /*
             Vx = arg_x
             Vy = arg_y
@@ -395,10 +486,10 @@ function execute(cmd) {
             chip8["V"][arg_x] = sub2
             break;
         case "SHL Vx, Vy":
-            if (chip8["V"][arg_y] >= 128 ){
+            if (chip8["V"][arg_y] >= 128) {
                 chip8["V"][15] = 1
             }
-            else{
+            else {
                 chip8["V"][15] = 0
             }
             /*

@@ -80,7 +80,7 @@ body{
   font-size: 1rem;
   margin-bottom: 1rem;
 }
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 768px) {
   #keypad{
     display: none;
   }

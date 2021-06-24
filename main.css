@@ -80,3 +80,16 @@ body{
   font-size: 1rem;
   margin-bottom: 1rem;
 }
+@media only screen and (min-width: 1024px) {
+  #keypad{
+    display: none;
+  }
+  #canvas{
+    order: 2;
+    width: 70vw;
+    height: 35vw;
+    border:0.5px solid white;
+    margin-bottom: 1rem;
+    image-rendering: pixelated;
+  }
+}

@@ -38,7 +38,7 @@ ctx.fillRect(0, 0, 1, 1)
 let keysDict = {}
 let romFound
 let fontStart = 0x50
-let chip8 = {
+let blankChip8 = {
     "memory": new Array(4096),
     "V": new Array(16),
     "delayTimer": 0,
@@ -66,6 +66,7 @@ let chip8 = {
         0xF0, 0x80, 0xF0, 0x80, 0x80   // F
     ]
 }
+let chip8 = blankChip8
 let displayMemory = emptyBuffer
 let arg_a, arg_x, arg_y, arg_xnnn, arg_xxnn, arg_xxxn
 let selectROM = document.getElementById("selectROM")
@@ -183,23 +184,23 @@ function btn_false(btn_name) {
 function printKeys() {
     console.log(keysDict)
 }
-
+timer = 0
 setInterval(() => {
-    if (romFound) {
-        pageCycle()
-    }
-}, 1);
 
-setInterval(() => {
     if (romFound) {
-    if (chip8["delayTimer"] > 0) {
-        chip8["delayTimer"] -= 1
+        cpuCycle()
+        timer++
+        if (timer % 5 == 0) {
+            draw()
+            if (chip8["delayTimer"] > 0) {
+                chip8["delayTimer"] -= 1
+            }
+            if (chip8["delayTimer"] > 0) {
+                chip8["delayTimer"] -= 1
+            }
+        }
     }
-    if (chip8["delayTimer"] > 0) {
-        chip8["delayTimer"] -= 1
-    }}
-}, 16);
-
+}, 3);
 
 async function myRom(x) {
     k = await fetch(x)
@@ -225,10 +226,17 @@ function updateDisplayMemory(x, y, value) {
     displayMemory[pixelIndex] ^= 1
     return (displayMemory[pixelIndex] & value)
 }
-async function pageCycle() {
-    await draw()
-    x = await getOPCode()
-    m = await decode(x)
+
+function cpuCycle(){
+    x =  getOPCode()
+    m =  decode(x)
+    execute(m)
+}
+
+function pageCycle() {
+    draw()
+    x = getOPCode()
+    m = decode(x)
     execute(m)
 
 }

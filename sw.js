@@ -3,7 +3,7 @@ self.addEventListener('install', function(event) {
     caches.open(cacheName).then(function(cache) {
       return cache.addAll(
         [
-          'new.css',
+          'main.css',
           'index.js',
           'index.html'
         ]

@@ -1,0 +1,22 @@
+{
+  "dir": "ltr",
+  "lang": "en",
+  "name": "RB's_Chip8",
+  "short_name": "RBC8",
+  "scope": "/",
+  "display": "standalone",
+  "start_url": "http://rbchip8.netlify.app/",
+  "background_color": "#212529",
+  "theme_color": "#212529",
+  "description": "A mobile-first Chip8 emulator for the web!",
+  "orientation": "portrait",
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "icons-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}

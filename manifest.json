@@ -5,7 +5,7 @@
   "short_name": "RBC8",
   "scope": "/",
   "display": "standalone",
-  "start_url": "https://rbchip8.netlify.app/",
+  "start_url": "/",
   "background_color": "#212529",
   "theme_color": "#212529",
   "description": "A mobile-first Chip8 emulator for the web!",

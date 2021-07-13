@@ -2,7 +2,7 @@ self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open('myCache').then(function(cache) {
       return cache.addAll(
-        ['/'
+        ['/index.html'
         ]
       );
     })
@@ -14,13 +14,5 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener(fetch, (event) => {
-  event.waitUntil(
-    caches.open('myCache').then(function(cache) {
-      return cache.addAll(
-        ['/'
-        ]
-      );
-    })
-  );
   console.log('Inside the fetch handler:', event);
 });

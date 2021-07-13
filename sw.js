@@ -1,12 +1,8 @@
-self.addEventListener('install', function(event) {
-  event.waitUntil(
-    caches.open('myCache').then(function(cache) {
-      return cache.addAll(
-        ['/main.css','sw.js','index.js','index.html'
-        ]
-      );
-    })
-  );
+pageAssets = ['./','./main.css','./index.js']
+
+self.addEventListener('install', async function(event) {
+  const cache = await casches.open('pageCache')
+  cache.addAll(pageAssets)
 });
 self.addEventListener('activate', (event) => {
   console.log('Inside the activate handler:', event);

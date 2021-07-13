@@ -1,4 +1,4 @@
-pageAssets = ['./','./main.css','./index.js']
+pageAssets = ['./','./manifest.json','./PONG','./TETRIS','sound.wav','./main.css','./index.js',"./sw.js",'./index.html']
 
 self.addEventListener('install', async function(event) {
   const cache = await caches.open('pageCache')
@@ -9,11 +9,13 @@ self.addEventListener('activate', (event) => {
   
 });
 
-self.addEventListener(fetch, (event) => {
-  event.respondWith(
-    caches.match(event.request).then(function(response) {
-      return response || fetch(event.request);
-    })
-  );
-  console.log('Inside the fetch handler:', event);
-});
+self.addEventListener('fetch', async function(event){
+  const req = event.request
+  event.respondWith(cacheFirst(req))
+})
+
+async function cacheFirst(req){
+  const cachedResponse = await caches.match(req)
+  return cachedResponse || fetch(req)
+}
+

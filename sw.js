@@ -1,7 +1,7 @@
 pageAssets = ['./','./main.css','./index.js']
 
 self.addEventListener('install', async function(event) {
-  const cache = await casches.open('pageCache')
+  const cache = await caches.open('pageCache')
   cache.addAll(pageAssets)
 });
 self.addEventListener('activate', (event) => {
